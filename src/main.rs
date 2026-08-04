@@ -41,7 +41,7 @@ async fn main() -> anyhow::Result<()> {
         .layer(cors)
         .with_state(state);
 
-    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok()).unwrap_or(3000);
+    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok()).unwrap_or(4455);
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
 
     tracing::info!("S Commie listening on {addr}");
