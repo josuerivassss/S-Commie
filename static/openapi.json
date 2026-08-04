@@ -1,0 +1,5093 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SCOMMIE",
+    "version": "3.0.0",
+    "description": "Image manipulation & JSON API, written in Rust + Axum."
+  },
+  "paths": {
+    "/image/badnews": {
+      "get": {
+        "summary": "Make a bad news meme with your own text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 130
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/beautiful": {
+      "get": {
+        "summary": "Make a beautiful meme using your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/blur": {
+      "get": {
+        "summary": "Apply a blur filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 2,
+              "minimum": 1,
+              "maximum": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/circle": {
+      "get": {
+        "summary": "Apply a circle cut to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/color": {
+      "get": {
+        "summary": "Make an image of the color you provided",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "3 or 6 digit hex color code"
+          },
+          {
+            "name": "width",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 512,
+              "minimum": 15,
+              "maximum": 1024
+            }
+          },
+          {
+            "name": "height",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 512,
+              "minimum": 15,
+              "maximum": 1024
+            }
+          },
+          {
+            "name": "showCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 15,
+              "minimum": 0,
+              "maximum": 150
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/communist": {
+      "get": {
+        "summary": "Apply a communist filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/deepfry": {
+      "get": {
+        "summary": "Apply a deepfry filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 2,
+              "minimum": 1,
+              "maximum": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/delete": {
+      "get": {
+        "summary": "Make a delete trash meme using your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/discordjs": {
+      "get": {
+        "summary": "Make a discordjs-like logo with your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 55
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/facts": {
+      "get": {
+        "summary": "Make a facts meme with your own text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/grayscale": {
+      "get": {
+        "summary": "Apply a grayscale filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/invert": {
+      "get": {
+        "summary": "Apply an invert filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/mad": {
+      "get": {
+        "summary": "Make a mad image using your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/mirror": {
+      "get": {
+        "summary": "Apply a mirror effect to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/pixel": {
+      "get": {
+        "summary": "Apply a pixel filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5,
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/rainbow": {
+      "get": {
+        "summary": "Apply a rainbow filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/rankcard": {
+      "get": {
+        "summary": "Make a rankcard using your own data",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "xp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "total",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "name": "rank",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "5865F2"
+            },
+            "description": "3 or 6 digit hex color code"
+          },
+          {
+            "name": "background",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional background image URL"
+          },
+          {
+            "name": "blur",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/santa": {
+      "get": {
+        "summary": "Make a santa meme with your own text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/ship": {
+      "get": {
+        "summary": "Make a ship image of two images",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image1",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "image2",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "normal",
+              "enum": [
+                "normal",
+                "fire",
+                "broken"
+              ]
+            }
+          },
+          {
+            "name": "background",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional background image URL"
+          },
+          {
+            "name": "blur",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/simp": {
+      "get": {
+        "summary": "Apply a simp filter to your image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/sonic": {
+      "get": {
+        "summary": "Make a sonic meme with your own text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 150
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/supreme": {
+      "get": {
+        "summary": "Make a supreme-like logo with your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 55
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/sus": {
+      "get": {
+        "summary": "Make a sus (among us) image using your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/thisis": {
+      "get": {
+        "summary": "Make a playlist image using your image and text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/titan": {
+      "get": {
+        "summary": "Make a titan meme with your own text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text1",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 150
+            }
+          },
+          {
+            "name": "text2",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 150
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/twoways": {
+      "get": {
+        "summary": "Make a two ways meme with your own text",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "text1",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 150
+            }
+          },
+          {
+            "name": "text2",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 150
+            }
+          },
+          {
+            "name": "text3",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 150
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/walletcard": {
+      "get": {
+        "summary": "Make a wallet card using your own data",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "wallet",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 0
+            }
+          },
+          {
+            "name": "bank",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 0
+            }
+          },
+          {
+            "name": "background",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional background image URL"
+          },
+          {
+            "name": "footer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "SCOMMIE"
+            }
+          },
+          {
+            "name": "blur",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/welcomecard": {
+      "get": {
+        "summary": "Make a welcomecard using your own data",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "Welcome",
+              "maxLength": 80
+            }
+          },
+          {
+            "name": "subtitle",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "Enjoy your stay!",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "background",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional background image URL"
+          },
+          {
+            "name": "blur",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/whoreallyare": {
+      "get": {
+        "summary": "Make a whoreallyare image using your own image",
+        "tags": [
+          "Files"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PNG image",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/8ball": {
+      "get": {
+        "summary": "Get a random 8ball response",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 1000
+            }
+          },
+          {
+            "name": "idiom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "en",
+              "enum": [
+                "en",
+                "es",
+                "pt",
+                "fr"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/animegifs": {
+      "get": {
+        "summary": "Get a random anime gif",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "style",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "angry",
+                "baka",
+                "bite",
+                "blush",
+                "cry",
+                "dance",
+                "deredere",
+                "happy",
+                "hug",
+                "kiss",
+                "path",
+                "punch",
+                "slap",
+                "sleep",
+                "smug"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/binary": {
+      "get": {
+        "summary": "Encode or decode a binary text",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 1000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/calendar": {
+      "get": {
+        "summary": "Check the calendar of a month",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1000,
+              "maximum": 2100
+            },
+            "description": "Defaults to current year"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "description": "Defaults to current month"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/ocr": {
+      "get": {
+        "summary": "Extract text from an image (OCR)",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
