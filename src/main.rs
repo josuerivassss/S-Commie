@@ -4,6 +4,7 @@ mod managers;
 mod response;
 mod routes;
 mod state;
+mod throttle;
 mod validate;
 
 use axum::{

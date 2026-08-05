@@ -2,7 +2,10 @@ mod animegifs;
 mod binary;
 mod calendar;
 mod eightball;
+mod imagesearch;
 mod ocr;
+mod translate;
+mod weather;
 
 use crate::state::AppState;
 use axum::{routing::get, Router};
@@ -14,4 +17,7 @@ pub fn router() -> Router<AppState> {
         .route("/json/animegifs", get(animegifs::handler))
         .route("/json/calendar", get(calendar::handler))
         .route("/json/ocr", get(ocr::handler))
+        .route("/json/translate", get(translate::handler))
+        .route("/json/weather", get(weather::handler))
+        .route("/json/imagesearch", get(imagesearch::handler))
 }

@@ -1,4 +1,5 @@
 use crate::managers::{EmojiCache, FontManager, GifCollection, LocalImagesManager};
+use crate::throttle::Throttle;
 use ocrs::{OcrEngine, OcrEngineParams};
 use rten::Model;
 use std::{path::Path, sync::Arc, time::Duration};
@@ -12,9 +13,8 @@ pub struct AppState {
     pub images: Arc<LocalImagesManager>,
     pub gifs: Arc<GifCollection>,
     pub emojis: Arc<EmojiCache>,
-    /// `None` when the .rten model files aren't present in `static/models/` —
-    /// in that case `/json/ocr` returns a clean 500 instead of the server refusing to start.
     pub ocr: Option<Arc<OcrEngine>>,
+    pub translate_throttle: Arc<Throttle>,
 }
 
 impl AppState {
@@ -31,6 +31,7 @@ impl AppState {
             gifs: Arc::new(GifCollection::load("static/gifs.json")?),
             emojis: Arc::new(EmojiCache::new()),
             ocr: load_ocr_engine(),
+            translate_throttle: Arc::new(Throttle::new(Duration::from_millis(500))),
         })
     }
 }

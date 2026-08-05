@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "SCOMMIE",
+    "title": "APY",
     "version": "3.0.0",
     "description": "Image manipulation & JSON API, written in Rust + Axum."
   },
@@ -3853,7 +3853,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "default": "SCOMMIE"
+              "default": "APY"
             }
           },
           {
@@ -4940,6 +4940,167 @@
         }
       }
     },
+    "/json/imagesearch": {
+      "get": {
+        "summary": "Search for images (DuckDuckGo, falls back to Bing)",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/json/ocr": {
       "get": {
         "summary": "Extract text from an image (OCR)",
@@ -4955,6 +5116,328 @@
               "type": "string"
             },
             "description": "Image URL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/json/translate": {
+      "get": {
+        "summary": "Translate a text (Google, falls back to MyMemory)",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1500
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "auto"
+            },
+            "description": "Source language code, or 'auto' to detect"
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 8
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        },
+                        "loc": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "param_type": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Tries Google's free translate endpoint first (throttled), falls back to the MyMemory API if Google fails or rate-limits. Response includes a 'backend' field indicating which service answered. MyMemory fallback requires a concrete 'source' (not 'auto')."
+      }
+    },
+    "/json/weather": {
+      "get": {
+        "summary": "Check the weather status in a specified location",
+        "tags": [
+          "JSON"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 150
+            },
+            "description": "City name"
           }
         ],
         "responses": {
