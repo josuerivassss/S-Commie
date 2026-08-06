@@ -28,19 +28,32 @@ pub fn rounded_mask(mut img: RgbaImage, radius: i32) -> RgbaImage {
     let (w, h) = img.dimensions();
     let mut mask = RgbaImage::from_pixel(w, h, Rgba([0, 0, 0, 0]));
     let white = Rgba([255, 255, 255, 255]);
-    let r = radius.clamp(0, (w.min(h) / 2) as i32);
 
-    // center cross (covers the rectangle minus the 4 rounded corners)
-    draw_filled_rect_mut(&mut mask, Rect::at(r, 0).of_size((w as i32 - 2 * r).max(0) as u32, h), white);
-    draw_filled_rect_mut(&mut mask, Rect::at(0, r).of_size(w, (h as i32 - 2 * r).max(0) as u32), white);
-    // 4 corners
-    for (cx, cy) in [(r, r), (w as i32 - r, r), (r, h as i32 - r), (w as i32 - r, h as i32 - r)] {
+    let r = radius.clamp(0, (w.min(h) / 2) as i32);
+    if r == 0 {
+        return img;
+    }
+    let center_w = w.saturating_sub((2 * r) as u32);
+    let center_h = h.saturating_sub((2 * r) as u32);
+
+    if center_w > 0 {
+        draw_filled_rect_mut(&mut mask, Rect::at(r, 0).of_size(center_w, h), white);
+    }
+    if center_h > 0 {
+        draw_filled_rect_mut(&mut mask, Rect::at(0, r).of_size(w, center_h), white);
+    }
+    for (cx, cy) in [
+        (r, r),
+        (w as i32 - r, r),
+        (r, h as i32 - r),
+        (w as i32 - r, h as i32 - r),
+    ] {
         draw_filled_ellipse_mut(&mut mask, (cx, cy), r, r, white);
     }
-
     for (px, mpx) in img.pixels_mut().zip(mask.pixels()) {
         px.0[3] = ((px.0[3] as u16 * mpx.0[3] as u16) / 255) as u8;
     }
+
     img
 }
 

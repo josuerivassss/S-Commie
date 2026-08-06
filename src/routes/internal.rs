@@ -31,7 +31,7 @@ const ROUTES: &[(&str, &str)] = &[
     ("/image/rainbow", "Apply a rainbow filter to your image"),
     ("/image/sus", "Make a sus (among us) image using your own image"),
     ("/image/mad", "Make a mad image using your own image"),
-    ("/image/whoreallyare", "Make a whoreallyare image using your own image"),
+    ("/image/caught", "Make a caught scooby-doo image using your own image"),
     ("/image/ship", "Make a ship image of two images"),
     ("/image/rankcard", "Make a rankcard using your own data"),
     ("/image/welcomecard", "Make a welcomecard using your own data"),

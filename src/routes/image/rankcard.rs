@@ -27,7 +27,7 @@ fn default_true() -> bool { true }
 fn bar_width(xp: f64, total: f64) -> f64 {
     let progress = (xp / total) * 425.0;
     if !progress.is_finite() || progress < 0.0 {
-        0.0
+        1.0
     } else {
         progress.min(425.0)
     }
@@ -61,27 +61,27 @@ pub async fn handler(State(state): State<AppState>, Query(q): Query<RankCardQuer
     let panel = imaging::rounded_rect_image(w, h, 30, Rgba([0, 0, 0, 180]));
     imaging::paste(&mut base, &panel, 0, 0);
 
-    let avatar = imaging::rounded_mask(avatar, 100);
-    let avatar = image::imageops::resize(&avatar, 256, 256, FilterType::Lanczos3);
-    imaging::paste(&mut base, &avatar, 0, 0);
+    let avatar = imaging::rounded_mask(avatar, 130);
+    let avatar = image::imageops::resize(&avatar, 225, 225, FilterType::Lanczos3);
+    let midpoint = 0 + (h as i64 - 225) / 2;
+    imaging::paste(&mut base, &avatar, 30, midpoint);
 
     let font_big = state.fonts.fetch("FranklinGothicDemi", "Regular").map_err(|_| ApiError::internal("Font not found"))?;
     let font_small = state.fonts.fetch("GGSans", "Medium").map_err(|_| ApiError::internal("Font not found"))?;
 
     let style_big = text::TextStyle::new(&font_big, 44.0).color(Rgba([255, 255, 255, 255]));
     text::draw(&mut base, &state.http, &state.emojis, (285, 40), &q.username, &style_big).await;
-    let style_small = text::TextStyle::new(&font_small, 15.0).color(Rgba([218, 218, 218, 255]));
+    let style_small = text::TextStyle::new(&font_small, 16.0).color(Rgba([218, 218, 218, 255]));
     text::draw(&mut base, &state.http, &state.emojis, (287, 90), &format!("Level: {}    Rank: #{}", q.level, q.rank), &style_small).await;
-    let style_small_white = text::TextStyle::new(&font_small, 15.0).color(Rgba([255, 255, 255, 255]));
-    text::draw(&mut base, &state.http, &state.emojis, (290, 160), &format!("XP: {}   /   {}", q.xp, q.total), &style_small_white).await;
+    text::draw(&mut base, &state.http, &state.emojis, (290, 160), &format!("XP: {}   /   {}", q.xp, q.total), &style_small).await;
 
     let main_color = imaging::parse_hex(&q.color);
-    let track_color = imaging::darken(main_color, 0.20);
+    let track_color = imaging::darken(main_color, 0.50);
     let track = imaging::rounded_rect_image(425, 40, 15, track_color);
     imaging::paste(&mut base, &track, 285, 185);
 
     if q.xp >= 1.0 {
-        let fill_w = bar_width(q.xp, q.total).max(1.0) as u32;
+        let fill_w = bar_width(q.xp, q.total).ceil().max(8.0) as u32;
         // outline effect: darker rect first (slightly larger), colored fill on top
         let outline = imaging::rounded_rect_image(fill_w + 6, 34 + 6, 18, track_color);
         imaging::paste(&mut base, &outline, 285, 185);
@@ -89,6 +89,7 @@ pub async fn handler(State(state): State<AppState>, Query(q): Query<RankCardQuer
         imaging::paste(&mut base, &fill, 288, 188);
     }
 
+    let base = imaging::rounded_mask(base, 30);
     let bytes = imaging::prepare_png(&base)?;
     Ok(([(header::CONTENT_TYPE, "image/png")], bytes))
 }

@@ -7,12 +7,12 @@ use serde::Deserialize;
 #[derive(Deserialize)]
 pub struct ImgQuery { image: String }
 
-/// GET /image/whoreallyare?image=URL.
+/// GET /image/caught?image=URL.
 pub async fn handler(State(state): State<AppState>, Query(q): Query<ImgQuery>) -> ApiResult<impl IntoResponse> {
     let avatar = imaging::open_image(&state.http, &q.image, "image").await?;
     let avatar = imaging::ellipse_mask(avatar);
     let avatar = image::imageops::resize(&avatar, 190, 190, FilterType::Lanczos3);
-    let mut overlay = state.images.fetch("whoreally").map_err(|_| ApiError::internal("Asset not found"))?;
+    let mut overlay = state.images.fetch("caught").map_err(|_| ApiError::internal("Asset not found"))?;
     imaging::paste(&mut overlay, &avatar, 68, 580);
 
     let bytes = imaging::prepare_png(&overlay)?;

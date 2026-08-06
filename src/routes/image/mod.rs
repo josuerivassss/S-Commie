@@ -19,7 +19,7 @@ mod thisis;
 mod titan;
 mod twoways;
 mod welcomecard;
-mod whoreallyare;
+mod caught;
 
 use crate::state::AppState;
 use axum::{routing::get, Router};
@@ -44,7 +44,7 @@ pub fn router() -> Router<AppState> {
         .route("/image/rainbow", get(rainbow::handler))
         .route("/image/sus", get(sus::handler))
         .route("/image/mad", get(mad::handler))
-        .route("/image/whoreallyare", get(whoreallyare::handler))
+        .route("/image/caught", get(caught::handler))
         .route("/image/ship", get(ship::handler))
         .route("/image/rankcard", get(rankcard::handler))
         .route("/image/welcomecard", get(welcomecard::handler))
