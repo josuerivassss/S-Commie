@@ -10,7 +10,7 @@ pub struct ImgQuery { image: String }
 /// GET /image/rainbow?image=URL — overlays a pride flag filter.
 pub async fn handler(State(state): State<AppState>, Query(q): Query<ImgQuery>) -> ApiResult<impl IntoResponse> {
     let mut img = imaging::open_image(&state.http, &q.image, "image").await?;
-    let overlay = state.images.fetch("gay").map_err(|_| ApiError::internal("Asset not found"))?;
+    let overlay = state.images.fetch("rainbow").map_err(|_| ApiError::internal("Asset not found"))?;
     let overlay = image::imageops::resize(&overlay, img.width(), img.height(), FilterType::Lanczos3);
     imaging::paste(&mut img, &overlay, 0, 0);
 

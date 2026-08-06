@@ -81,8 +81,6 @@ pub fn draw_gradient(base: &mut RgbaImage, rect: ((i32, i32), (u32, u32)), color
 }
 
 /// Simple k-means over a downsampled copy of the image, returning the `k` most
-/// representative colors ordered by (cluster size / closeness to other clusters).
-/// Lightweight on purpose: this runs on every welcomecard/walletcard/thisis request.
 pub fn dominant_colors(img: &RgbaImage, k: usize) -> Vec<[u8; 3]> {
     let small = imageops::resize(img, (img.width() / 4).max(1), (img.height() / 4).max(1), imageops::FilterType::Nearest);
     let pixels: Vec<[f32; 3]> = small.pixels().map(|p| [p[0] as f32, p[1] as f32, p[2] as f32]).collect();
