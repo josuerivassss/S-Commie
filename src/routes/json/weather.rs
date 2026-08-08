@@ -1,6 +1,7 @@
 use crate::extract::Query;
 use crate::{response::{ApiError, ApiOk, ApiResult}, state::AppState, validate};
 use axum::extract::State;
+use axum::http::StatusCode;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -26,17 +27,41 @@ struct WeatherOut {
 pub async fn handler(State(state): State<AppState>, Query(q): Query<WeatherQuery>) -> ApiResult {
     validate::len(&q.query, 1, 150, "query")?;
 
+    if !state.external_breakers.weather.allow() {
+        return Err(ApiError::new(StatusCode::SERVICE_UNAVAILABLE, "Weather service temporarily unavailable, try again shortly"));
+    }
+
     let location = q.query.replace(' ', "+");
     let res = state
         .http
         .get(format!("https://wttr.in/{location}"))
         .query(&[("format", "j1")])
         .send()
-        .await
-        .map_err(|_| ApiError::not_found())?;
+        .await;
 
-    let body: Value = res.json().await.map_err(|_| ApiError::not_found())?;
-    let current = body.get("current_condition").and_then(|c| c.get(0)).ok_or_else(ApiError::not_found)?;
+    let res = match res {
+        Ok(r) if r.status().is_success() => r,
+        _ => {
+            state.external_breakers.weather.record_failure();
+            return Err(ApiError::not_found());
+        }
+    };
+
+    let body: Value = match res.json().await {
+        Ok(b) => b,
+        Err(_) => {
+            state.external_breakers.weather.record_failure();
+            return Err(ApiError::not_found());
+        }
+    };
+
+    let current = match body.get("current_condition").and_then(|c| c.get(0)) {
+        Some(c) => c,
+        None => {
+            state.external_breakers.weather.record_failure();
+            return Err(ApiError::not_found());
+        }
+    };
 
     let str_field = |key: &str| current.get(key).and_then(Value::as_str).unwrap_or("").to_string();
     let int_field = |key: &str| str_field(key).parse::<i32>().unwrap_or(0);
@@ -50,6 +75,8 @@ pub async fn handler(State(state): State<AppState>, Query(q): Query<WeatherQuery
         .unwrap_or("")
         .trim()
         .to_string();
+
+    state.external_breakers.weather.record_success();
 
     Ok(ApiOk::new(WeatherOut {
         description,

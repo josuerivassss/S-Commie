@@ -1,7 +1,7 @@
 use crate::response::ApiError;
 use axum::{
     async_trait,
-    extract::{FromRequestParts, Query as AxumQuery},
+    extract::{ FromRequestParts, Query as AxumQuery },
     http::request::Parts,
 };
 use serde::de::DeserializeOwned;

@@ -1,6 +1,7 @@
 use crate::extract::Query;
 use crate::{response::{ApiError, ApiOk, ApiResult}, state::AppState, validate};
 use axum::extract::State;
+use axum::http::StatusCode;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -29,7 +30,12 @@ pub async fn handler(State(state): State<AppState>, Query(q): Query<TranslateQue
     validate::len(&q.text, 1, 1500, "text")?;
     validate::len(&q.target, 2, 8, "target")?;
 
+    if !state.external_breakers.translate.allow() {
+        return Err(ApiError::new(StatusCode::SERVICE_UNAVAILABLE, "Translation service temporarily unavailable, try again shortly"));
+    }
+
     if let Some((translated, detected_source)) = google_translate(&state, &q.text, &q.source, &q.target).await {
+        state.external_breakers.translate.record_success();
         return Ok(ApiOk::new(TranslateOut {
             source: detected_source,
             target: q.target,
@@ -41,6 +47,7 @@ pub async fn handler(State(state): State<AppState>, Query(q): Query<TranslateQue
 
     if q.source != "auto" {
         if let Some(translated) = mymemory_translate(&state, &q.text, &q.source, &q.target).await {
+            state.external_breakers.translate.record_success();
             return Ok(ApiOk::new(TranslateOut {
                 source: q.source.clone(),
                 target: q.target,
@@ -51,6 +58,9 @@ pub async fn handler(State(state): State<AppState>, Query(q): Query<TranslateQue
         }
     }
 
+    // Both backends failed (or MyMemory was skipped for auto-detect) --
+    // only counts as a breaker failure once every available path is exhausted.
+    state.external_breakers.translate.record_failure();
     Err(ApiError::bad_request("The provided translation is invalid"))
 }
 

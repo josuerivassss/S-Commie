@@ -6,9 +6,9 @@ pub mod json;
 use crate::state::AppState;
 use axum::Router;
 
-pub fn router() -> Router<AppState> {
+pub fn router(state: AppState) -> Router<AppState> {
     Router::new()
-        .merge(json::router())
+        .merge(json::router(state))
         .merge(image::router())
         .merge(internal::router())
         .merge(docs::router())

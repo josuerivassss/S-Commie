@@ -1,8 +1,11 @@
 use crate::managers::{EmojiCache, FontManager, GifCollection, LocalImagesManager};
 use crate::throttle::Throttle;
+use crate::apikeys::{ApiKeyCache, ApiKeyRepository, QuotaTracker, SharedApiKeyCache};
+use crate::circuit::CircuitBreaker;
 use ocrs::{OcrEngine, OcrEngineParams};
 use rten::Model;
 use std::{path::Path, sync::Arc, time::Duration};
+use mongodb::Client as MongoClient;
 
 /// Cloneable handle shared across every request (all heavy data is loaded once
 /// at startup and wrapped in `Arc`, so cloning `AppState` is just a few pointer copies).
@@ -15,15 +18,23 @@ pub struct AppState {
     pub emojis: Arc<EmojiCache>,
     pub ocr: Option<Arc<OcrEngine>>,
     pub translate_throttle: Arc<Throttle>,
+    pub api_keys: SharedApiKeyCache,
+    pub api_key_repo: Arc<ApiKeyRepository>,
+    pub quotas: Arc<QuotaTracker>,
+    pub external_breakers: ExternalBreakers,
 }
 
 impl AppState {
-    pub fn init() -> anyhow::Result<Self> {
+    pub async fn init() -> anyhow::Result<Self> {
         let http = reqwest::Client::builder()
             .timeout(Duration::from_secs(10))
             .user_agent("SCOMMIE/3.0 (+https://github.com/)")
             .build()?;
 
+        let mongo_uri = std::env::var("MONGO_URI").unwrap_or_else(|_| "mongodb://localhost:27017".into());
+        let mongo_db_name = std::env::var("MONGO_DB_NAME").unwrap_or_else(|_| "bcommie".into());
+        let mongo_client = MongoClient::with_uri_str(&mongo_uri).await?;
+        let api_key_repo = Arc::new(ApiKeyRepository::new(&mongo_client, &mongo_db_name));
         Ok(Self {
             http,
             fonts: Arc::new(FontManager::load("static/fonts")?),
@@ -32,6 +43,10 @@ impl AppState {
             emojis: Arc::new(EmojiCache::new()),
             ocr: load_ocr_engine(),
             translate_throttle: Arc::new(Throttle::new(Duration::from_millis(500))),
+            api_keys: Arc::new(ApiKeyCache::empty()),
+            api_key_repo,
+            quotas: Arc::new(QuotaTracker::new()),
+            external_breakers: ExternalBreakers::new(),
         })
     }
 }
@@ -69,6 +84,23 @@ fn load_ocr_engine() -> Option<Arc<OcrEngine>> {
         Err(e) => {
             tracing::error!("Failed to load OCR models: {e}");
             None
+        }
+    }
+}
+
+#[derive(Clone)]
+pub struct ExternalBreakers {
+    pub translate: Arc<CircuitBreaker>,
+    pub weather: Arc<CircuitBreaker>,
+    pub imagesearch: Arc<CircuitBreaker>,
+}
+
+impl ExternalBreakers {
+    fn new() -> Self {
+        Self {
+            translate: Arc::new(CircuitBreaker::new(5, 60)),
+            weather: Arc::new(CircuitBreaker::new(3, 90)),
+            imagesearch: Arc::new(CircuitBreaker::new(4, 120)),
         }
     }
 }

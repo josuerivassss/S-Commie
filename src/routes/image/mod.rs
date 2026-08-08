@@ -20,6 +20,7 @@ mod titan;
 mod twoways;
 mod welcomecard;
 mod caught;
+mod discordprofile;
 
 use crate::state::AppState;
 use axum::{routing::get, Router};
@@ -48,4 +49,5 @@ pub fn router() -> Router<AppState> {
         .route("/image/ship", get(ship::handler))
         .route("/image/rankcard", get(rankcard::handler))
         .route("/image/welcomecard", get(welcomecard::handler))
+        .route("/image/discordprofile", get(discordprofile::handler))
 }

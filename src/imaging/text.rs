@@ -8,6 +8,7 @@ use rusttype::{point, Font, Scale};
 pub enum Align {
     Left,
     Center,
+    #[allow(dead_code)]
     Right,
 }
 
@@ -56,7 +57,7 @@ impl<'a> TextStyle<'a> {
         self.box_width = Some(box_width);
         self
     }
-
+    #[allow(dead_code)]
     pub fn emoji_scale(mut self, scale: f32) -> Self {
         self.emoji_scale = scale;
         self

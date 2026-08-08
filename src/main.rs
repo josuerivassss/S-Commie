@@ -6,6 +6,8 @@ mod routes;
 mod state;
 mod throttle;
 mod validate;
+mod apikeys;
+mod circuit;
 
 use axum::{
     extract::{ConnectInfo, State},
@@ -16,7 +18,7 @@ use axum::{
 };
 use response::ApiError;
 use state::AppState;
-use std::{net::SocketAddr, time::Instant};
+use std::{net::SocketAddr, time::Instant, time::Duration};
 use tower_http::{cors::CorsLayer, limit::RequestBodyLimitLayer, trace::TraceLayer};
 
 #[tokio::main]
@@ -26,7 +28,33 @@ async fn main() -> anyhow::Result<()> {
         .with_env_filter(std::env::var("RUST_LOG").unwrap_or_else(|_| "info".into()))
         .init();
 
-    let state = AppState::init()?;
+    let state = AppState::init().await?; // antes: AppState::init()?
+
+    if let Err(e) = state.api_keys.refresh(&state.api_key_repo).await {
+        tracing::warn!(%e, "initial api_keys load failed, starting with an empty cache");
+    }
+    {
+        let state = state.clone();
+        tokio::spawn(async move {
+            let mut interval = tokio::time::interval(Duration::from_secs(120));
+            loop {
+                interval.tick().await;
+                if let Err(e) = state.api_keys.refresh(&state.api_key_repo).await {
+                    tracing::warn!(%e, "api_keys refresh failed, keeping previous cache");
+                }
+            }
+        });
+    }
+    {
+        let state = state.clone();
+        tokio::spawn(async move {
+            let mut interval = tokio::time::interval(Duration::from_secs(600));
+            loop {
+                interval.tick().await;
+                state.quotas.cleanup();
+            }
+        });
+    }
 
     let cors = CorsLayer::new()
         .allow_origin(tower_http::cors::Any)
@@ -34,7 +62,7 @@ async fn main() -> anyhow::Result<()> {
         .allow_headers(tower_http::cors::Any);
 
     let app = Router::new()
-        .merge(routes::router())
+        .merge(routes::router(state.clone()))
         .fallback(not_found)
         .layer(middleware::from_fn_with_state(state.clone(), request_logger))
         .layer(TraceLayer::new_for_http())
@@ -42,10 +70,10 @@ async fn main() -> anyhow::Result<()> {
         .layer(cors)
         .with_state(state);
 
-    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok()).unwrap_or(4455);
+    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok()).unwrap_or(3000);
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
 
-    tracing::info!("S Commie listening on {addr}");
+    tracing::info!("Service Commie API listening on {addr}");
     let listener = tokio::net::TcpListener::bind(addr).await?;
     axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>())
         .with_graceful_shutdown(shutdown_signal())
